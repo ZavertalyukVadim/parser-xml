@@ -14,34 +14,22 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws JDOMException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
-        Map<Doc, String> map = new HashMap();
         ParserDto parser = new ParserDto();
-        File inputFile = new File("example.xml");
-        SAXBuilder saxBuilder = new SAXBuilder();
-        Document document = saxBuilder.build(inputFile);
-        System.out.println("document = " + document);
-        Element rootElement = document.getRootElement();
         String str = "/" +parser.first + "/" + parser.second + "/" + parser.third + "/" + parser.forth + "/" + parser.fifth + "/" + parser.sixth;
-        String[] mass = new String[]{str};
 
+        String[] mass = new String[]{str};
         List<String> list = new ArrayList<>();
         list.addAll(Arrays.asList(mass));
 
+        File inputFile = new File("example.xml");
+        SAXBuilder saxBuilder = new SAXBuilder();
+        Document document = saxBuilder.build(inputFile);
+        Element rootElement = document.getRootElement();
 
-        for (Element e : rootElement.getChildren(parser.second)) {
-            for (Element e1 : e.getChildren(parser.third)) {
-                for (Element e2 : e1.getChildren(parser.forth)) {
-                    for (Element e3 : e2.getChildren(parser.fifth)) {
-                        for (Element e4 : e3.getChildren(parser.sixth)) {
-                            System.out.println(e4.getText());
-                            String text = e4.getText();
-                            Doc.Basis.setxPath(list);
-                            map.put(Doc.Basis, text);
-                        }
-                    }
-                }
-            }
-        }
+
+        Map<Doc, String> map = new HashMap();
+
+        findRecord(map, parser, rootElement, list);
 
         System.out.println();
         System.out.println();
@@ -65,6 +53,21 @@ public class Main {
 //                }
 //            }
 //        }
+    }
+
+    private static void findRecord(Map<Doc, String> map, ParserDto parser, Element rootElement, List<String> list) {
+        for (Element e : rootElement.getChildren(parser.second)) {
+            for (Element e1 : e.getChildren(parser.third)) {
+                for (Element e2 : e1.getChildren(parser.forth)) {
+                    for (Element e3 : e2.getChildren(parser.fifth)) {
+                        for (Element e4 : e3.getChildren(parser.sixth)) {
+                            Doc.Basis.setxPath(list);
+                            map.put(Doc.Basis, e4.getText());
+                        }
+                    }
+                }
+            }
+        }
     }
 }
 ///Placing/ContractSection/ContractMarket/PremiumRegulatoryAllocationScheme/Allocation/AllocationReference
