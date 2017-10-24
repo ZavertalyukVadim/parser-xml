@@ -47,25 +47,23 @@ public class Main {
     }
 
     private static void findRecord(Map<Doc, String> map, Element rootElement, List<String> list) {
-
-        for (int i = 0; ; ) {
+        int i = 0;
+        System.out.println("S = " + list.get(i));
+        for (Element e : rootElement.getChildren(list.get(i))) {
+            i++;
             System.out.println("S = " + list.get(i));
-            for (Element e : rootElement.getChildren(list.get(i))) {
+            for (Element e1 : e.getChildren(list.get(i))) {
                 i++;
-                System.out.println("S = " + list.get(i));
-                for (Element e1 : e.getChildren(list.get(i))) {
+                System.out.println("S? = " + list.get(i));
+                for (Element e2 : e1.getChildren(list.get(i--))) {
                     i++;
-                    System.out.println("S? = " + list.get(i));
-                    for (Element e2 : e1.getChildren(list.get(i--))) {
+                    System.out.println("S! = " + list.get(i) + " id = " + i++);
+                    for (Element e3 : e2.getChildren(list.get(i))) {
                         i++;
-                        System.out.println("S! = " + list.get(i) + " id = " + i++);
-                        for (Element e3 : e2.getChildren(list.get(i))) {
-                            i++;
-                            System.out.println("S = " + list.get(i));
-                            for (Element e4 : e3.getChildren(list.get(i))) {
-                                map.put(Doc.Basis, e4.getText());
-                                return;
-                            }
+                        System.out.println("S = " + list.get(i));
+                        for (Element e4 : e3.getChildren(list.get(i))) {
+                            map.put(Doc.Country, e4.getText());
+                            return;
                         }
                     }
                 }
