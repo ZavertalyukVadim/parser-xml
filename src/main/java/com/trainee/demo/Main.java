@@ -10,21 +10,14 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws JDOMException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
-
-        List<String> list = Arrays.asList(
-                "ContractSection",
-                "ContractMarket",
-                "PremiumRegulatoryAllocationScheme",
-                "Allocation",
-                "AllocationReference"
-        );
+        Parser parser = new Parser();
+        List<String> list = Parser.parse(Doc.Reference.getxPath().get(0));
 
         File inputFile = new File("example.xml");
         SAXBuilder saxBuilder = new SAXBuilder();
@@ -41,28 +34,24 @@ public class Main {
         map.forEach((key, value) -> System.out.println("key = " + key + " value =  " + value + " path = " + key.getxPath()));
     }
 
-    private static String cleanString(String s) {
-        s = s.replaceAll("[^A-Za-zА-Яа-я0-9/]", "");
-        return s;
-    }
-
     private static void findRecord(Map<Doc, String> map, Element rootElement, List<String> list) {
         int i = 0;
-        System.out.println("S = " + list.get(i));
+        int j = 0;
+        System.out.println("S1 = " + list.get(i));
         for (Element e : rootElement.getChildren(list.get(i))) {
-            i++;
-            System.out.println("S = " + list.get(i));
-            for (Element e1 : e.getChildren(list.get(i))) {
-                i++;
-                System.out.println("S? = " + list.get(i));
-                for (Element e2 : e1.getChildren(list.get(i--))) {
-                    i++;
-                    System.out.println("S! = " + list.get(i) + " id = " + i++);
-                    for (Element e3 : e2.getChildren(list.get(i))) {
-                        i++;
-                        System.out.println("S = " + list.get(i));
-                        for (Element e4 : e3.getChildren(list.get(i))) {
-                            map.put(Doc.Country, e4.getText());
+            System.out.println("S2 = " + list.get(i));
+            for (Element e1 : e.getChildren(list.get(++i))) {
+                if (j != 0) {
+                    i--;
+                }
+                j++;
+                System.out.println("S3 = " + list.get(i));
+                for (Element e2 : e1.getChildren(list.get(++i))) {
+                    System.out.println("S4 = " + list.get(i) + " id = " + i);
+                    for (Element e3 : e2.getChildren(list.get(++i))) {
+                        System.out.println("S5 = " + list.get(i));
+                        for (Element e4 : e3.getChildren(list.get(++i))) {
+                            map.put(Doc.Reference, e4.getText());
                             return;
                         }
                     }
