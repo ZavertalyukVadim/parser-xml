@@ -1,7 +1,11 @@
 package com.trainee.demo;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public enum Doc {
-    Reference,
+    Reference(),
     Country,
     Insured,
     Description,
@@ -27,13 +31,18 @@ public enum Doc {
     RiskCode,
     Name;
 
-    private String url;
-
-    public void setUrl(String url) {
-        this.url = url;
+    Doc(String... xPath) {
+        this.xPath.addAll(Arrays.asList(xPath));
     }
 
-    public String getUrl() {
-        return url;
+    private List<String> xPath = new ArrayList<>();
+
+    public List<String> getxPath() {
+        return xPath;
     }
+
+    public void setxPath(List<String> xPath) {
+        this.xPath = xPath;
+    }
+
 }
