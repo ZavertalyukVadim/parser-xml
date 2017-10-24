@@ -3,7 +3,7 @@ package com.trainee.demo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-//2,3
+
 public enum Doc {
     Reference("/Placing/ContractSection/ContractMarket/PremiumRegulatoryAllocationScheme/Allocation/AllocationReference"),
     Country("/Placing/ContractSection/RiskLocation/Location/Description"),
@@ -26,16 +26,23 @@ public enum Doc {
     Ord("/Placing/ContractSection/BrokerSharePercentage/Rate"),
     Line("/Placing/ContractSection/ContractMarket/InsurerSharePercentage/Rate"),
     Deduction("/Placing/ContractSection/OtherDeductions/OtherDeductionsPercentage/Rate"),
-    InstCount("Does not currently exist in the XML – show as blank."),
+    InstCount("Inst. Count"),
     LineBasis("/Placing/ContractSection/LinePercentageBasis"),
     RiskCode("/Placing/ContractSection/ContractMarket/PremiumRegulatoryAllocationScheme/Allocation/AllocationCode"),
-    Name("/Placing/CedentDescription ","/Placing/InsuredDescription");
+    Name("Risk Code","/Placing/CedentDescription ", "/Placing/InsuredDescription");
 
-    Doc(String... xPath) {
+    Doc(String label, String... xPath) {
+        this.label = label;
         this.xPath.addAll(Arrays.asList(xPath));
     }
 
+    private String label;
+
     private List<String> xPath = new ArrayList<>();
+
+    public String getLabel() {
+        return label;
+    }
 
     public List<String> getxPath() {
         return xPath;
