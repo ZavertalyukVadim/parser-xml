@@ -14,29 +14,29 @@ import java.util.*;
 
 public class Main {
     public static void main(String[] args) throws JDOMException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
-        Map<Doc,String> map = new HashMap();
+        Map<Doc, String> map = new HashMap();
         ParserDto parser = new ParserDto();
         File inputFile = new File("example.xml");
         SAXBuilder saxBuilder = new SAXBuilder();
         Document document = saxBuilder.build(inputFile);
         System.out.println("document = " + document);
         Element rootElement = document.getRootElement();
+        String str = "/" +parser.first + "/" + parser.second + "/" + parser.third + "/" + parser.forth + "/" + parser.fifth + "/" + parser.sixth;
+        String[] mass = new String[]{str};
 
-        String[] mass  = new String[]{parser.first,parser.second,parser.third,parser.forth,parser.fifth,parser.sixth};
-
-        List<String> list= new ArrayList<>();
+        List<String> list = new ArrayList<>();
         list.addAll(Arrays.asList(mass));
 
 
         for (Element e : rootElement.getChildren(parser.second)) {
             for (Element e1 : e.getChildren(parser.third)) {
                 for (Element e2 : e1.getChildren(parser.forth)) {
-                    for (Element e3 :e2.getChildren(parser.fifth)){
-                        for (Element e4 : e3.getChildren(parser.sixth)){
+                    for (Element e3 : e2.getChildren(parser.fifth)) {
+                        for (Element e4 : e3.getChildren(parser.sixth)) {
                             System.out.println(e4.getText());
                             String text = e4.getText();
                             Doc.Basis.setxPath(list);
-                            map.put(Doc.Basis,text);
+                            map.put(Doc.Basis, text);
                         }
                     }
                 }
@@ -45,7 +45,8 @@ public class Main {
 
         System.out.println();
         System.out.println();
-        map.forEach((key,value)->System.out.println(key+"   "+value));
+        map.forEach((key, value) -> System.out.println("key = " + key + " value =  " + value + " path = " + key.getxPath()));
+
 //        List<Element> contractSection = rootElement.getChildren("ContractSection");
 //        for (Element aContractSection : contractSection) {
 //            List<Element> contractMarket = aContractSection.getChildren("ContractMarket");
