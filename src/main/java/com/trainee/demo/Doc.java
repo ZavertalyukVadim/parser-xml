@@ -12,7 +12,7 @@ public enum Doc {
     BrokerId("/Placing/Broker/Party/Id"),
     BrokerName("/Placing/Broker/Party/Name"),
     PremiumCurrency("/Placing/ContractSection/Premium/PremiumAmount/AmtCcy"),
-    PremiumAmount("/Placing/ContractSection/Premium/Premium Amount/Amt"),
+    PremiumAmount("/Placing/ContractSection/Premium/PremiumAmount/Amt"),
     LimitCurrency("/Placing/ContractSection/ContractCoverage/CoverageAmount/AmtCcy"),
     LimitAmount("/Placing/ContractSection/ContractCoverage/CoverageAmount/Amt"),
     Bkrage("/Placing/ContractSection/Brokerage/BrokeragePercentage/Rate"),

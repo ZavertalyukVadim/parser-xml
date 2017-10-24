@@ -16,8 +16,7 @@ import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws JDOMException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
-        Parser parser = new Parser();
-        List<String> list = Parser.parse(Doc.Reference.getxPath().get(0));
+        List<String> list = Parser.parse(Doc.Description.getxPath().get(0));
 
         File inputFile = new File("example.xml");
         SAXBuilder saxBuilder = new SAXBuilder();
@@ -37,27 +36,27 @@ public class Main {
     private static void findRecord(Map<Doc, String> map, Element rootElement, List<String> list) {
         int i = 0;
         int j = 0;
+        int k = 0;
         System.out.println("S1 = " + list.get(i));
         for (Element e : rootElement.getChildren(list.get(i))) {
+            if (j != 0) {
+                i--;
+            }
+            j++;
             System.out.println("S2 = " + list.get(i));
-            for (Element e1 : e.getChildren(list.get(++i))) {
-                if (j != 0) {
+            for (Element e3 : e.getChildren(list.get(++i))) {
+                if (k != 0) {
                     i--;
                 }
-                j++;
-                System.out.println("S3 = " + list.get(i));
-                for (Element e2 : e1.getChildren(list.get(++i))) {
-                    System.out.println("S4 = " + list.get(i) + " id = " + i);
-                    for (Element e3 : e2.getChildren(list.get(++i))) {
-                        System.out.println("S5 = " + list.get(i));
-                        for (Element e4 : e3.getChildren(list.get(++i))) {
-                            map.put(Doc.Reference, e4.getText());
-                            return;
-                        }
-                    }
+                k++;
+                System.out.println("S5 = " + list.get(i));
+                for (Element e4 : e3.getChildren(list.get(++i))) {
+                    map.put(Doc.Cancel, e4.getText());
+                    return;
                 }
             }
         }
     }
 }
+
 ///Placing/ContractSection/ContractMarket/PremiumRegulatoryAllocationScheme/Allocation/AllocationReference
