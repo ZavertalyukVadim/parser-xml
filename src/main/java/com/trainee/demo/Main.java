@@ -15,11 +15,14 @@ import java.util.*;
 public class Main {
     public static void main(String[] args) throws JDOMException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
         ParserDto parser = new ParserDto();
-        String str = "/" +parser.first + "/" + parser.second + "/" + parser.third + "/" + parser.forth + "/" + parser.fifth + "/" + parser.sixth;
-
-        String[] mass = new String[]{str};
-        List<String> list = new ArrayList<>();
-        list.addAll(Arrays.asList(mass));
+        List<Route> list = Arrays.asList(
+                new Route("Placing"),
+                new Route("ContractSection"),
+                new Route("ContractMarket"),
+                new Route("PremiumRegulatoryAllocationScheme"),
+                new Route("Allocation"),
+                new Route("AllocationReference")
+        );
 
         File inputFile = new File("example.xml");
         SAXBuilder saxBuilder = new SAXBuilder();
@@ -55,13 +58,19 @@ public class Main {
 //        }
     }
 
-    private static void findRecord(Map<Doc, String> map, ParserDto parser, Element rootElement, List<String> list) {
+    private static String cleanString(String s) {
+        s = s.replaceAll("[^A-Za-zА-Яа-я0-9/]", "");
+        return s;
+    }
+
+    private static void findRecord(Map<Doc, String> map, ParserDto parser, Element rootElement, List<Route> list) {
         for (Element e : rootElement.getChildren(parser.second)) {
             for (Element e1 : e.getChildren(parser.third)) {
                 for (Element e2 : e1.getChildren(parser.forth)) {
                     for (Element e3 : e2.getChildren(parser.fifth)) {
                         for (Element e4 : e3.getChildren(parser.sixth)) {
-                            Doc.Basis.setxPath(list);
+//                            String[] mass =
+                            Doc.Basis.setxPath(Collections.singletonList(cleanString(list.toString())));
                             map.put(Doc.Basis, e4.getText());
                         }
                     }
