@@ -28,12 +28,28 @@ public class Main {
 
         Map<Doc, String> map = new HashMap();
 
-        findRecordForOne(map, rootElement, list);
-        findRecordForTwo(map, rootElement, list);
-        findRecordForThree(map, rootElement, list);
-        findRecordForFour(map, rootElement, list);
-        findRecordForFive(map, rootElement, list);
-
+        switch (list.size()) {
+            case 1: {
+                findRecordForOne(map, rootElement, list);
+                break;
+            }
+            case 2: {
+                findRecordForTwo(map, rootElement, list);
+                break;
+            }
+            case 3: {
+                findRecordForThree(map, rootElement, list);
+                break;
+            }
+            case 4: {
+                findRecordForFour(map, rootElement, list);
+                break;
+            }
+            case 5: {
+                findRecordForFive(map, rootElement, list);
+                break;
+            }
+        }
         System.out.println();
         System.out.println();
         map.forEach((key, value) -> System.out.println("key = " + key + " value =  " + value + " path = " + key.getxPath()));
