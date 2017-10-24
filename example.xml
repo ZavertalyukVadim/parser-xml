@@ -1,0 +1,237 @@
+<Placing Receiver="insurer" Sender="serviceprovider">
+  <UUId>9997ba53-91e2-4278-a1ff-8661e69f6088</UUId>
+  <ServiceProviderReference>2eefe777-04fc-4370-a1c7-2d5fdea9ea80</ServiceProviderReference>
+  <CreationDate>2017-09-20T13:28:52</CreationDate>
+  <SentDate>2017-09-20T13:28:52</SentDate>
+  <ContractVersionDate>2017-09-20</ContractVersionDate>
+  <PlacingStage>order</PlacingStage>
+  <PlacingTransactionFunction>placing_details</PlacingTransactionFunction>
+  <PlacingEntry>
+    <ServiceProviderReference>-</ServiceProviderReference>
+  </PlacingEntry>
+  <TransactionReasonDescription>001</TransactionReasonDescription>
+  <Insurer>
+    <Party>
+      <Id Agency="DUNS_dun_and_bradstreet">216338365</Id>
+      <Name>Chubb Managing Agent Ltd</Name>
+    </Party>
+  </Insurer>
+  <Broker>
+    <Party>
+      <Id Agency="lloyds">1135</Id>
+      <Id Agency="DUNS_dun_and_bradstreet">Missing</Id>
+      <Name>Endeavour Insurance Services Limited</Name>
+    </Party>
+  </Broker>
+  <ServiceProvider>
+    <Party>
+      <Id Agency="DUNS_dun_and_bradstreet">007007007</Id>
+      <Name>SDC Service</Name>
+    </Party>
+  </ServiceProvider>
+  <Insured>
+    <Party>
+      <Name>-</Name>
+    </Party>
+    <Address>
+      <NumberAndStreet>5664 Prairie Creek Dr</NumberAndStreet>
+      <CityName>Caledonia</CityName>
+      <PostalCode>49316</PostalCode>
+      <Subentity>US-MI</Subentity>
+      <Country>US</Country>
+    </Address>
+  </Insured>
+  <InsuredDescription>Acrisure LLC, Acrisure Holdings, Inc,., Acrisure Intermediate, Inc, and any wholly owned subsidiary, division or doing business as, now or herein after created.</InsuredDescription>
+  <InsuredFilingCountrySubentity>US-MI</InsuredFilingCountrySubentity>
+  <ProducingBroker>
+    <Party>
+      <Name>XS/Group, Inc 2750 Killarney Drive Suite 202 Woodbridge Virginia 22192 USA</Name>
+    </Party>
+  </ProducingBroker>
+  <OtherBroker>
+    <Party>
+      <Name>Laurie S. Coleman XS/Group Inc 2750 Killarney Drive Suite 202 Woodbridge Virginia 22192 USA Filing n...</Name>
+    </Party>
+    <Address>
+      <Subentity>US-VA</Subentity>
+      <Country>US</Country>
+    </Address>
+  </OtherBroker>
+  <Contract>
+    <ContractType>direct_insurance_contract</ContractType>
+    <BrokerReference>B113517P03914</BrokerReference>
+  </Contract>
+  <ContractSection ContractReportingLevel="contract_level">
+    <HighLevelReference>00</HighLevelReference>
+    <InsuredRiskOrInterestDescription>Errors and Omissions arising out of the Assureds operations</InsuredRiskOrInterestDescription>
+    <ContractPeriod>
+      <StartDateTime TimeZone="local_standard_time">2017-10-01T00:01:00</StartDateTime>
+      <EndDateTime TimeZone="local_standard_time">2018-10-01T00:01:00</EndDateTime>
+    </ContractPeriod>
+    <ContractSectionClass>
+      <ClassOfBusinessDescription>Excess Aggregate Costs Inclusive as may be more fully defined in the underlying primary policy wording P03903 2016.</ClassOfBusinessDescription>
+    </ContractSectionClass>
+    <RiskLocation>
+      <Location>
+        <Description>Worldwide</Description>
+      </Location>
+    </RiskLocation>
+    <JurisdictionLocation>
+      <Location>
+        <Country>US</Country>
+        <Description>Any dispute between the Insured and Insurers concerning the interpretation of this Policy shall be governed by the laws of Michigan and thereafter with respect to Jurisdiction the provisions on LMA 5020 shall apply.</Description>
+        <Subentity>US-MI</Subentity>
+      </Location>
+    </JurisdictionLocation>
+    <USARiskClassification>
+      <RiskClass Agency="national_association_of_insurance_commissioners">us_surplus_lines</RiskClass>
+    </USARiskClassification>
+    <FSAClientClassification>
+      <FSAClientClass>commercial</FSAClientClass>
+    </FSAClientClassification>
+    <ConditionsDescription>As per the LSW 055 as attached following all terms of the primary policy 17P03903 plus the additional terms and conditions including: Schedule of Retroactive Dates for prior acquisitions and Schedule of Named Assureds as per primary policy 17P03903. Retroactive Date- full prior acts. Punitive or exemplary damages, fines or penalties are excluded from this Policy. LMA9055 Michigan Surplus Lines Notice LMA3100 Sanction Limitation and Exclusion Clause Application Form dated 14th September 2017</ConditionsDescription>
+    <CedentSharePercentage>
+      <Rate RateUnit="percentage">0.0000</Rate>
+    </CedentSharePercentage>
+    <BrokerSharePercentage>
+      <Rate RateUnit="percentage">100.00000000</Rate>
+    </BrokerSharePercentage>
+    <OrderPercentage>
+      <Rate RateUnit="percentage">100.00000000</Rate>
+    </OrderPercentage>
+    <LinePercentageBasis>percentage_of_whole</LinePercentageBasis>
+    <ContractCoverage CoverageType="loss_limit">
+      <CoverageAmount>
+        <Amt Ccy="USD">10000000.00</Amt>
+      </CoverageAmount>
+      <CoverageBasis>in_aggregate</CoverageBasis>
+      <CoverageBasisDescription>The liability of Underwriters fo...</CoverageBasisDescription>
+    </ContractCoverage>
+    <ContractCoverage CoverageType="aggregate_loss_limit">
+      <CoverageAmount>
+        <Amt Ccy="USD">10000000.00</Amt>
+      </CoverageAmount>
+      <CoverageBasis>in_aggregate</CoverageBasis>
+      <CoverageBasisDescription>The liability of Underwriters fo...</CoverageBasisDescription>
+    </ContractCoverage>
+    <ContractCoverage CoverageType="loss_limit">
+      <CoverageAmount>
+        <Amt Ccy="USD">10000000.00</Amt>
+      </CoverageAmount>
+      <CoverageBasis>claim</CoverageBasis>
+      <CoverageBasisDescription>The liability of Underwriters fo...</CoverageBasisDescription>
+    </ContractCoverage>
+    <ContractDeductible DeductibleType="loss_excess_policy">
+      <DeductibleAmount>
+        <Amt Ccy="USD">10000000.00</Amt>
+      </DeductibleAmount>
+      <DeductibleBasis>in_aggregate</DeductibleBasis>
+      <DeductibleBasisDescription>Which is in excess of underlying...</DeductibleBasisDescription>
+    </ContractDeductible>
+    <ContractDeductible DeductibleType="loss_excess_policy">
+      <DeductibleAmount>
+        <Amt Ccy="USD">10000000.00</Amt>
+      </DeductibleAmount>
+      <DeductibleBasis>claim</DeductibleBasis>
+      <DeductibleBasisDescription>Which is in excess of underlying...</DeductibleBasisDescription>
+    </ContractDeductible>
+    <Premium PremiumType="premium">
+      <Description>USD 519,000 (100%)</Description>
+      <PremiumAmount>
+        <Amt Ccy="USD">519000.00</Amt>
+      </PremiumAmount>
+      <PaymentDate>2017-12-01</PaymentDate>
+      <TermsOfTradePeriod>
+        <TimeDuration PeriodType="day">60</TimeDuration>
+      </TermsOfTradePeriod>
+      <PaymentsDescription>LSW 3000 Premium Payment Clause-60 days</PaymentsDescription>
+    </Premium>
+    <Premium PremiumType="adjustment_premium">
+      <TermsOfTradePeriod>
+        <TimeDuration PeriodType="day">0</TimeDuration>
+      </TermsOfTradePeriod>
+    </Premium>
+    <Premium PremiumType="Premium">
+      <TermsOfTradePeriod>
+        <TimeDuration PeriodType="day">0</TimeDuration>
+      </TermsOfTradePeriod>
+    </Premium>
+    <Brokerage>
+      <BrokeragePercentage>
+        <Rate RateUnit="percentage">15.00</Rate>
+      </BrokeragePercentage>
+      <BrokerageBasis>gross_premium</BrokerageBasis>
+    </Brokerage>
+    <OtherDeductions>
+      <Description>None</Description>
+      <OtherDeductionsPercentage>
+        <Rate RateUnit="percentage">0.00</Rate>
+      </OtherDeductionsPercentage>
+      <OtherDeductionsBasis>gross_premium</OtherDeductionsBasis>
+    </OtherDeductions>
+    <FeePayableByClientIndicator>false</FeePayableByClientIndicator>
+    <Clauses>
+      <Clause>
+        <ClauseType>several_liability_clause</ClauseType>
+        <Description>LMA3333 (Re)insurer's liability several not joint The liability of a (reinsurer under this contract is several and not joint with other (reinsurers party to this contract. A (reinsurer is liable only for the proportion of liability it has underwritten. A (re)insurer is not jointly liable for the proportion of liability underwritten by any other (reinsurer. Nor is a (reinsurer otherwise responsible for any liability of any other (reinsurer that may underwrite this contact. The proportion of liability under this contract underwritten by a (reinsurer (or, in the case of a Lloyd's syndicate, the total of the proportions underwritten by all members of the syndicate taken together) is shown next to its stamp. This subject always to the provision concerning "signing" below. In the case of a Lloyd's syndicate, each member of the syndicate (rather than the syndicate itself) is a (reinsurer. Each member has underwritten a proportion of the total shown for the syndicate (that total itself being the total of the proportions underwritten by all members of the syndicate taken together) . The liability of each member of the syndicate is several and not joint with other members. A member is liable only for that member's proportion. Nor is any member otherwise responsible for any liability of any other (re)insurer that may underwrite this contract. The business address of each member is Lloyd's, One Lime Street, London EC3M 7HA. The identity of each member of a Lloyd's syndicate and their respective proportion may be obtained by writing to Market Services, Lloyd's, at the above address. Proportion of liability Unless there is "signing" (see below), the proportion of liability under this contract underwritten by each (reinsurer (or, in the case of a Lloyd's syndicate, the total of the proportions underwritten by all the members of the syndicate taken together) is shown next to its stamp and is referred to as its "written line". Where this contract permits, written lines, or certain written lines, may be adjusted ("signed") . In that case a schedule is to be appended to this contract to show the definitive proportion of liability under this contract underwritten by each (reinsurer (or, in the case of a Lloyd's syndicate, the total of the proportions underwritten by all the members of the syndicate taken together) . A definitive proportion (or, in the case of a Lloyd's syndicate, the total of the proportions underwritten by all the members of a Lloyd's syndicate taken together) is referred to as a "signed line". The signed lines shown in the schedule will prevail over the written lines unless a proven error in calculation has occurred. Although reference is made at various points in this clause to "this contract" in the singular, where the circumstances so require this should be read as reference to contracts in the plural</Description>
+      </Clause>
+    </Clauses>
+    <ContractChangesAgreementBasis>bespoke_agreement_practice</ContractChangesAgreementBasis>
+    <DocumentProductionDetailsDescription>This document details the contract terms entered into by the insurer(s), and constitutes the contract document.</DocumentProductionDetailsDescription>
+    <ClaimsAgreementBasisDescription>Claims to be managed in accordance with the Lloyd's Claims Scheme (Combined), or as amended or any successor thereto.</ClaimsAgreementBasisDescription>
+    <ClaimsDelegatedAuthorityDescription>Not Applicable.</ClaimsDelegatedAuthorityDescription>
+    <ClaimsAdministrationDescription>Underwriters agree that any claims hereunder(including any claims related costs/fees) will be notified and administered via ECF with any payment(s) processed via CLASS, unless both parties agree to do otherwise as per the relevant claims scheme.</ClaimsAdministrationDescription>
+    <ExpertFeesCollectionMethodDescription>Broker to collect.</ExpertFeesCollectionMethodDescription>
+    <RecordingTransmittingStoringInformationProvisionsDescription>Where Endeavour Insurance Services Limited maintains risk and/or claim data/information/documents Endeavour Insurance Services Limited may hold such data/information/documents electronically.</RecordingTransmittingStoringInformationProvisionsDescription>
+    <BureauxArrangementsDescription>None.</BureauxArrangementsDescription>
+    <SigningProvisionsDescription>In the event that the written lines hereon exceed 100.00% of the order, any lines written'to stand' will be allocated in full and all other lines will be signed down in equal proportions so that the aggregate signed lines are equal to 100.00% of the order without further agreement of any of the insurers. a) in the event that the placement of the order is not completed by the commencement date of the period of insurance, then all lines written by that date will be signed in full. b) the signed lines resulting from the application of the above provisions can be varied, before or after the commencement date of the period of insurance, by the documented agreement of the Insured and all Underwriters whose lines are to be varied, The variation of the contracts will take effect only when all such Underwriters have agreed, with the resulting variation in signed lines commencing from the date set out in that agreement.</SigningProvisionsDescription>
+    <TaxProvisions Type="tax_added_to_gross_premium">
+      <TaxProvision>
+        <TaxClass>premium_tax</TaxClass>
+        <TaxTypeDescription>None</TaxTypeDescription>
+        <TaxRateBasis>gross_premium</TaxRateBasis>
+      </TaxProvision>
+    </TaxProvisions>
+    <TaxProvisions Type="tax_deducted_from_gross_premium">
+      <TaxProvision>
+        <TaxClass>premium_tax</TaxClass>
+        <TaxTypeDescription>None</TaxTypeDescription>
+        <TaxRateBasis>gross_premium</TaxRateBasis>
+      </TaxProvision>
+    </TaxProvisions>
+    <TaxProvisions Type="tax_added_to_gross_premium">
+      <TaxProvision>
+        <TaxClass>premium_tax</TaxClass>
+        <TaxTypeDescription>None</TaxTypeDescription>
+        <TaxRateBasis>gross_premium</TaxRateBasis>
+      </TaxProvision>
+    </TaxProvisions>
+    <ContractMarket MarketAddressedIndicator="false">
+      <Insurer>
+        <Party>
+          <Id Agency="lloyds">2488</Id>
+          <Name>ACE European Group</Name>
+        </Party>
+      </Insurer>
+      <ParticipantFunction>leader</ParticipantFunction>
+    </ContractMarket>
+    <ContractMarket MarketAddressedIndicator="true">
+      <EndorsementParticipantFunction>leader</EndorsementParticipantFunction>
+      <ClaimParticipantFunction>leader</ClaimParticipantFunction>
+      <PremiumRegulatoryAllocationScheme Agency="lloyds">
+        <Allocation>
+          <AllocationCode>E8</AllocationCode>
+          <AllocationPercentage>
+            <Rate RateUnit="percentage">100.00000000</Rate>
+          </AllocationPercentage>
+          <AllocationReference>AEEI6HTQ0458</AllocationReference>
+        </Allocation>
+      </PremiumRegulatoryAllocationScheme>
+      <WrittenDateTime>2017-09-19T00:00:00</WrittenDateTime>
+      <LineToStandIndicator>0</LineToStandIndicator>
+      <InsurerSharePercentage>
+        <Rate RateUnit="percentage">50.00000000</Rate>
+      </InsurerSharePercentage>
+    </ContractMarket>
+  </ContractSection>
+</Placing>
