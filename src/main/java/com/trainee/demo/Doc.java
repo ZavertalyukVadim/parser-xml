@@ -3,11 +3,11 @@ package com.trainee.demo;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
+//2,3
 public enum Doc {
     Reference("/Placing/ContractSection/ContractMarket/PremiumRegulatoryAllocationScheme/Allocation/AllocationReference"),
     Country("/Placing/ContractSection/RiskLocation/Location/Description"),
-    Insured("/Placing/InsuredDescription OR", "/Placing/OriginalPolicyholder/Party/Name"),
+    Insured("/Placing/InsuredDescription", "/Placing/OriginalPolicyholder/Party/Name"),
     Description("/Placing/ContractSection/ContractSectionClass/ClassOfBusinessDescription"),
     BrokerId("/Placing/Broker/Party/Id"),
     BrokerName("/Placing/Broker/Party/Name"),
