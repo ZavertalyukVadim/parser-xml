@@ -10,18 +10,20 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws JDOMException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
-        ParserDto parser = new ParserDto();
-        List<Route> list = Arrays.asList(
-                new Route("Placing"),
-                new Route("ContractSection"),
-                new Route("ContractMarket"),
-                new Route("PremiumRegulatoryAllocationScheme"),
-                new Route("Allocation"),
-                new Route("AllocationReference")
+
+        List<String> list = Arrays.asList(
+                new String("ContractSection"),
+                new String("ContractMarket"),
+                new String("PremiumRegulatoryAllocationScheme"),
+                new String("Allocation"),
+                new String("AllocationReference")
         );
 
         File inputFile = new File("example.xml");
@@ -32,7 +34,7 @@ public class Main {
 
         Map<Doc, String> map = new HashMap();
 
-        findRecord(map, parser, rootElement, list);
+        findRecord(map, rootElement, list);
 
         System.out.println();
         System.out.println();
@@ -63,20 +65,44 @@ public class Main {
         return s;
     }
 
-    private static void findRecord(Map<Doc, String> map, ParserDto parser, Element rootElement, List<Route> list) {
-        for (Element e : rootElement.getChildren(parser.second)) {
-            for (Element e1 : e.getChildren(parser.third)) {
-                for (Element e2 : e1.getChildren(parser.forth)) {
-                    for (Element e3 : e2.getChildren(parser.fifth)) {
-                        for (Element e4 : e3.getChildren(parser.sixth)) {
-//                            String[] mass =
-                            Doc.Basis.setxPath(Collections.singletonList(cleanString(list.toString())));
-                            map.put(Doc.Basis, e4.getText());
+    private static void findRecord(Map<Doc, String> map, Element rootElement, List<String> list) {
+
+        for (int i = 0; ; ) {
+            System.out.println("S = " + list.get(i));
+                for (Element e : rootElement.getChildren(list.get(i))) {
+                    i++;
+                    System.out.println("S = " + list.get(i));
+                    for (Element e1 : e.getChildren(list.get(i))) {
+                        i++;
+                        System.out.println("S? = " + list.get(i));
+                        for (Element e2 : e1.getChildren(list.get(i--))) {
+                            i++;
+                            System.out.println("S! = " + list.get(i)+"id = "+i++);
+                            for (Element e3 : e2.getChildren(list.get(i))) {
+                                i++;
+                                System.out.println("S = " + list.get(i));
+                                for (Element e4 : e3.getChildren(list.get(i))) {
+                                    map.put(Doc.Basis, e4.getText());
+                                    return;
+                                }
+                            }
                         }
                     }
                 }
-            }
+//            }
         }
     }
+//        for (Element e : rootElement.getChildren("ContractSection")) {
+//            for (Element e1 : e.getChildren(parser.third)) {
+//                for (Element e2 : e1.getChildren(parser.forth)) {
+//                    for (Element e3 : e2.getChildren(parser.fifth)) {
+//                        for (Element e4 : e3.getChildren(parser.sixth)) {
+//                            map.put(Doc.Basis, e4.getText());
+//                        }
+//                    }
+//                }
+//            }
+//        }
+
 }
 ///Placing/ContractSection/ContractMarket/PremiumRegulatoryAllocationScheme/Allocation/AllocationReference
