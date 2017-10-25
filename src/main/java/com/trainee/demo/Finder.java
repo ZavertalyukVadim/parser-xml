@@ -71,6 +71,7 @@ public class Finder {
             if (j != 0) {
                 i--;
             }
+            j++;
             for (Element e2 : e.getChildren(list.get(++i))) {
                 if (k != 0) {
                     i--;
