@@ -1,65 +1,194 @@
 package com.trainee.demo;
 
-import org.jdom2.Document;
-import org.jdom2.Element;
 import org.jdom2.JDOMException;
-import org.jdom2.input.SAXBuilder;
+import org.w3c.dom.Document;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static com.trainee.demo.Finder.*;
-
 public class Main {
     public static void main(String[] args) throws JDOMException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
         Map<Doc, String> map = new HashMap();
-        File inputFile = new File("example.xml");
-        SAXBuilder saxBuilder = new SAXBuilder();
-        Document document = saxBuilder.build(inputFile);
 
-        Element rootElement = document.getRootElement();
-        int i = Doc.values().length;
-        System.out.println(i);
+        File fXmlFile = new File("example.xml");
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+        Document doc = dBuilder.parse(fXmlFile);
+        showDocument(doc);
+    }
 
-        for (Doc doc : Doc.values()) {
-            for (int j = 0; j < doc.getxPath().size(); ++j) {
-                List<String> list = Parser.parse(doc.getxPath().get(j));
-                switch (list.size()) {
-                    case 1: {
-                        findRecordForOne(map, rootElement, list, doc);
-                        break;
-                    }
-                    case 2: {
-                        findRecordForTwo(map, rootElement, list, doc);
-                        break;
-                    }
-                    case 3: {
-                        findRecordForThree(map, rootElement, list, doc);
-                        break;
-                    }
-                    case 4: {
-                        findRecordForFour(map, rootElement, list, doc);
-                        break;
-                    }
-                    case 5: {
-                        findRecordForFive(map, rootElement, list, doc);
-                        break;
-                    }
-                }
+    private static void showDocument(Document doc) {
+        StringBuffer content = new StringBuffer();
+        Node node = doc.getChildNodes().item(0);
+        ApplicationNode appNode = new ApplicationNode(node);
 
+        content.append("Application \n");
+
+        List<ClassNode> classes = appNode.getClasses();
+
+        for (int i = 0; i < classes.size(); i++) {
+            ClassNode classNode = classes.get(i);
+
+            List<MethodNode> methods = classNode.getMethods();
+
+            for (int j = 0; j < methods.size(); j++) {
+                MethodNode methodNode = methods.get(j);
+               content.append("Method: " + methodNode.getSome() + " \n");
             }
         }
-        System.out.println();
-        System.out.println();
-        System.out.println(map.size());
-        System.out.println();
-        System.out.println();
-        map.forEach((key, value) -> System.out.println("key = " + key + " value =  " + value + " path = " + key.getxPath()));
+        System.out.println(content);
     }
+
+    public static class ClassNode {
+
+        Node node;
+
+        /**
+         * Создаем новый экземпляр объекта на основе Node узла.
+         */
+        public ClassNode(Node node) {
+            this.node = node;
+        }
+
+        /**
+         * Возвращает список методов класса.
+         */
+        public List<MethodNode> getMethods() {
+            ArrayList<MethodNode> methods = new ArrayList<MethodNode>();
+
+            /**
+             * Получаем список дочерних узлов для данного узла XML,
+             * который соответствует классу class. Здесь будут располагаться
+             * все узлы Node, каждый из которых является объектным
+             * представлением тега method для текущего тега class.
+             */
+
+            NodeList methodNodes = node.getChildNodes();
+
+            for (int i = 0; i < methodNodes.getLength(); i++) {
+                node = methodNodes.item(i);
+
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+
+                    /**
+                     * Создаем на основе Node узла своё объектное представление
+                     * метода.
+                     */
+                    MethodNode methodNode = new MethodNode(node);
+                    methods.add(methodNode);
+                }
+            }
+
+            return methods;
+        }
+
+        /**
+         * Возвращае имя класса.
+         */
+//        public String getName() {
+//
+//            /**
+//             * Получаем атрибуты узла метода.
+//             */
+//            NamedNodeMap attributes = node.getAttributes();
+//
+//            /**
+//             * Получаем узел аттрибута.
+//             */
+//            Node nameAttrib = attributes.getNamedItem("Agency");
+//
+//            /**
+//             * Возвращаем значение атрибута.
+//             */
+//            return nameAttrib.getNodeValue();
+//        }
+    }
+
+    public static class MethodNode {
+
+        Node node;
+
+        /**
+         * Создаем новый экземпляр объекта на основе Node узла.
+         */
+        public MethodNode(Node node) {
+            this.node = node;
+        }
+
+        public String getSome() {
+            return this.node.getNodeName();
+        }
+
+        /**
+         * Возвращает имя метода.
+         */
+//        public String getName() {
+//
+//            /**
+//             * Получаем атрибуты узла метода.
+//             */
+//            NamedNodeMap attributes = node.getAttributes();
+//
+//            /**
+//             * Получаем узел аттрибута.
+//             */
+//            Node nameAttrib = attributes.getNamedItem("ContractSection");
+//
+//            /**
+//             * Возвращаем значение атрибута.
+//             */
+//            return nameAttrib.getNodeValue();
+//        }
+    }
+
+    public static class ApplicationNode {
+
+        Node node;
+
+        public ApplicationNode(Node node) {
+            this.node = node;
+        }
+
+        public List<ClassNode> getClasses() {
+            ArrayList<ClassNode> classes = new ArrayList<ClassNode>();
+
+            /**
+             * Получаем список дочерних узлов для данного узла XML, который
+             * соответствует приложению application. Здесь будут располагаться
+             * все узлы Node, каждый из которых является объектным
+             * представлением тега class для текущего тега application.
+             */
+            NodeList classNodes = node.getChildNodes();
+
+            for (int i = 0; i < classNodes.getLength(); i++) {
+                Node node = classNodes.item(i);
+
+                if (node.getNodeType() == Node.ELEMENT_NODE) {
+
+                    /**
+                     * Создаем на основе Node узла своё объектное
+                     * представление класса.
+                     */
+                    ClassNode classNode = new ClassNode(node);
+                    classes.add(classNode);
+                }
+            }
+
+            return classes;
+        }
+
+    }
+
+
 }
