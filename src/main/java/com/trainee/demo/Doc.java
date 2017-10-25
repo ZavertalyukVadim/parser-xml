@@ -11,9 +11,9 @@ public enum Doc {
     DESCRIPTION("Description","/Placing/ContractSection/ContractSectionClass/ClassOfBusinessDescription"),
     BROKEN_ID("Broker Id","/Placing/Broker/Party/Id"),
     BROKEN_NAME("Broker Name","/Placing/Broker/Party/Name"),
-    PREMIUN_CURRENCY("Premium Currency (1st textbox)","/Placing/ContractSection/Premium/PremiumAmount/AmtCcy"),
+    PREMIUM_CURRENCY("Premium Currency (1st textbox)","/Placing/ContractSection/Premium/Premium Amount/Amt Ccy"),//
     PREMIUM_AMOUNT("Premium Amount (2nd textbox)","/Placing/ContractSection/Premium/PremiumAmount/Amt"),
-    LIMIT_CURRENCY("Limit Currency (1st textbox)","/Placing/ContractSection/ContractCoverage/CoverageAmount/AmtCcy"),
+    LIMIT_CURRENCY("Limit Currency (1st textbox)","/Placing/ContractSection/ContractCoverage/CoverageAmount/AmtCcy"),//
     LIMIT_AMOUNT("Limit Amount (2nd textbox)","/Placing/ContractSection/ContractCoverage/CoverageAmount/Amt"),
     BKRAGE("Bkrage %","/Placing/ContractSection/Brokerage/BrokeragePercentage/Rate"),
     BASIS("Basis","/Placing/ContractSection/ContractCoverage/CoverageBasis "),
@@ -26,10 +26,10 @@ public enum Doc {
     ORD("Ord %","/Placing/ContractSection/BrokerSharePercentage/Rate"),
     LINE("Line %","/Placing/ContractSection/ContractMarket/InsurerSharePercentage/Rate"),
     DEDUCTION("Deduction %","/Placing/ContractSection/OtherDeductions/OtherDeductionsPercentage/Rate"),
-    INST_COUNT("Inst. Count","Inst. Count"),
+    INST_COUNT("Inst. Count","Inst. Count"),//
     LINE_BASIS("Line % Basis","/Placing/ContractSection/LinePercentageBasis"),
     RISK_CODE("Risk Code","/Placing/ContractSection/ContractMarket/PremiumRegulatoryAllocationScheme/Allocation/AllocationCode"),
-    NAME("Name","/Placing/CedentDescription ", "/Placing/InsuredDescription");
+    NAME("Name","/Placing/CedentDescription ", "/Placing/InsuredDescription");//
 
     Doc(String label, String... xPath) {
         this.label = label;
@@ -54,7 +54,8 @@ public enum Doc {
 
 }
 //сделай большими названия в enum +
-//добавить в doc первую строку для имя -
+//добавить в doc первую строку для имя +
 //добавить что бы проходило всю мапу   -
+//добавить выборку, если несколько полей -
 //отдавать map(str,str) -
 //переделать алгоритм, сделать его более уневерсальным -

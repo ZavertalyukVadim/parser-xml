@@ -7,11 +7,11 @@ import java.util.Map;
 
 public class Finder {
 
-    public static void findRecordForOne(Map<Doc, String> map, Element rootElement, List<String> list) {
+    public static void findRecordForOne(Map<Doc, String> map, Element rootElement, List<String> list,Doc doc) {
         int i = 0;
         System.out.println("S1 = " + list.get(i));
         for (Element e1 : rootElement.getChildren(list.get(i))) {
-            map.put(Doc.Cancel, e1.getText());
+            map.put(doc, e1.getText());
             return;
         }
 
@@ -19,7 +19,7 @@ public class Finder {
     }
 
 
-    public static void findRecordForTwo(Map<Doc, String> map, Element rootElement, List<String> list) {
+    public static void findRecordForTwo(Map<Doc, String> map, Element rootElement, List<String> list,Doc doc) {
         int i = 0;
         int j = 0;
         System.out.println("S1 = " + list.get(i));
@@ -31,7 +31,7 @@ public class Finder {
             System.out.println("S2 = " + list.get(i));
 
             for (Element e1 : e.getChildren(list.get(++i))) {
-                map.put(Doc.Cancel, e1.getText());
+                map.put(doc, e1.getText());
                 return;
             }
 
@@ -39,7 +39,7 @@ public class Finder {
     }
 
 
-    public static void findRecordForThree(Map<Doc, String> map, Element rootElement, List<String> list) {
+    public static void findRecordForThree(Map<Doc, String> map, Element rootElement, List<String> list,Doc doc) {
         int i = 0;
         int j = 0;
         int k = 0;
@@ -55,16 +55,16 @@ public class Finder {
                     i--;
                 }
                 k++;
-                System.out.println("S5 = " + list.get(i));
+                System.out.println("S3 = " + list.get(i));
                 for (Element e3 : e2.getChildren(list.get(++i))) {
-                    map.put(Doc.Cancel, e3.getText());
+                    map.put(doc, e3.getText());
                     return;
                 }
             }
         }
     }
 
-    public static void findRecordForFour(Map<Doc, String> map, Element rootElement, List<String> list) {
+    public static void findRecordForFour(Map<Doc, String> map, Element rootElement, List<String> list,Doc doc) {
         int i = 0;
         int j = 0;
         int k = 0;
@@ -89,7 +89,7 @@ public class Finder {
                     l++;
                     System.out.println("S4 = " + list.get(i));
                     for (Element e4 : e3.getChildren(list.get(++i))) {
-                        map.put(Doc.Cancel, e4.getText());
+                        map.put(doc, e4.getText());
                         return;
                     }
                 }
@@ -97,7 +97,7 @@ public class Finder {
         }
     }
 
-    public static void findRecordForFive(Map<Doc, String> map, Element rootElement, List<String> list) {
+    public static void findRecordForFive(Map<Doc, String> map, Element rootElement, List<String> list,Doc doc) {
         int i = 0;
         int j = 0;
         int k = 0;
@@ -124,7 +124,7 @@ public class Finder {
                         l++;
                         System.out.println("S5 = " + list.get(i));
                         for (Element e4 : e3.getChildren(list.get(++i))) {
-                            map.put(Doc.Reference, e4.getText());
+                            map.put(doc, e4.getText());
                             return;
                         }
                     }

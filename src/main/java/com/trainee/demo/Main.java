@@ -18,36 +18,37 @@ import static com.trainee.demo.Finder.*;
 
 public class Main {
     public static void main(String[] args) throws JDOMException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
-        List<String> list = Parser.parse(Doc.Reference.getxPath().get(0));
-
+        Map<Doc, String> map = new HashMap();
         File inputFile = new File("example.xml");
         SAXBuilder saxBuilder = new SAXBuilder();
         Document document = saxBuilder.build(inputFile);
+
         Element rootElement = document.getRootElement();
-
-
-        Map<Doc, String> map = new HashMap();
-
-        switch (list.size()) {
-            case 1: {
-                findRecordForOne(map, rootElement, list);
-                break;
-            }
-            case 2: {
-                findRecordForTwo(map, rootElement, list);
-                break;
-            }
-            case 3: {
-                findRecordForThree(map, rootElement, list);
-                break;
-            }
-            case 4: {
-                findRecordForFour(map, rootElement, list);
-                break;
-            }
-            case 5: {
-                findRecordForFive(map, rootElement, list);
-                break;
+        int i = Doc.values().length;
+        System.out.println(i);
+        for (Doc doc : Doc.values()) {
+            List<String> list = Parser.parse(doc.getxPath().get(0));
+            switch (list.size()) {
+                case 1: {
+                    findRecordForOne(map, rootElement, list,doc);
+                    break;
+                }
+                case 2: {
+                    findRecordForTwo(map, rootElement, list,doc);
+                    break;
+                }
+                case 3: {
+                    findRecordForThree(map, rootElement, list,doc);
+                    break;
+                }
+                case 4: {
+                    findRecordForFour(map, rootElement, list,doc);
+                    break;
+                }
+                case 5: {
+                    findRecordForFive(map, rootElement, list,doc);
+                    break;
+                }
             }
         }
         System.out.println();
