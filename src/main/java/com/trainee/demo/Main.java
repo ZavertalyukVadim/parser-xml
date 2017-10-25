@@ -20,16 +20,25 @@ import java.util.Map;
 public class Main {
     public static void main(String[] args) throws JDOMException, IOException, SAXException, ParserConfigurationException, URISyntaxException {
         Map<Doc, String> map = new HashMap();
-
+        List<String> parse = Parser.parse(Doc.REFERENCE.getxPath().get(0));
         File fXmlFile = new File("example.xml");
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(fXmlFile);
-        showDocument(doc);
+        doc.getDocumentElement().normalize();
+
+
+        System.out.println(doc.getElementsByTagName("Rate").item(1).getChildNodes().item(0).getNodeValue());
+//        showDocument(doc);
     }
 
     private static void showDocument(Document doc) {
         StringBuffer content = new StringBuffer();
+        NodeList childNodes = doc.getChildNodes();
+//        NamedNodeMap attributes = childNodes.getAttributes();
+        for (int i = 0; i < childNodes.getLength(); i++) {
+            System.out.println("= "+childNodes.item(i));
+        }
         Node node = doc.getChildNodes().item(0);
         ApplicationNode appNode = new ApplicationNode(node);
 
@@ -44,7 +53,7 @@ public class Main {
 
             for (int j = 0; j < methods.size(); j++) {
                 MethodNode methodNode = methods.get(j);
-               content.append("Method: " + methodNode.getSome() + " \n");
+                content.append("Method: " + methodNode.getSome() + " \n");
             }
         }
         System.out.println(content);
