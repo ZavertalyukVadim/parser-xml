@@ -26,10 +26,10 @@ public enum Doc {
     ORD("Ord %","/Placing/ContractSection/BrokerSharePercentage/Rate"),
     LINE("Line %","/Placing/ContractSection/ContractMarket/InsurerSharePercentage/Rate"),
     DEDUCTION("Deduction %","/Placing/ContractSection/OtherDeductions/OtherDeductionsPercentage/Rate"),
-    INST_COUNT("Inst. Count","Inst. Count"),//
+    INST_COUNT("Inst. Count",""),//!
     LINE_BASIS("Line % Basis","/Placing/ContractSection/LinePercentageBasis"),
     RISK_CODE("Risk Code","/Placing/ContractSection/ContractMarket/PremiumRegulatoryAllocationScheme/Allocation/AllocationCode"),
-    NAME("Name","/Placing/CedentDescription ", "/Placing/InsuredDescription");//
+    NAME("Name","/Placing/CedentDescription ", "/Placing/InsuredDescription");
 
     Doc(String label, String... xPath) {
         this.label = label;

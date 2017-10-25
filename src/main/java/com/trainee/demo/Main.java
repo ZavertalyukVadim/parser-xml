@@ -27,30 +27,36 @@ public class Main {
         int i = Doc.values().length;
         System.out.println(i);
         for (Doc doc : Doc.values()) {
-            List<String> list = Parser.parse(doc.getxPath().get(0));
-            switch (list.size()) {
-                case 1: {
-                    findRecordForOne(map, rootElement, list,doc);
-                    break;
+            for (int j = 0; j < doc.getxPath().size(); ++j) {
+                List<String> list = Parser.parse(doc.getxPath().get(j));
+                switch (list.size()) {
+                    case 1: {
+                        findRecordForOne(map, rootElement, list, doc);
+                        break;
+                    }
+                    case 2: {
+                        findRecordForTwo(map, rootElement, list, doc);
+                        break;
+                    }
+                    case 3: {
+                        findRecordForThree(map, rootElement, list, doc);
+                        break;
+                    }
+                    case 4: {
+                        findRecordForFour(map, rootElement, list, doc);
+                        break;
+                    }
+                    case 5: {
+                        findRecordForFive(map, rootElement, list, doc);
+                        break;
+                    }
                 }
-                case 2: {
-                    findRecordForTwo(map, rootElement, list,doc);
-                    break;
-                }
-                case 3: {
-                    findRecordForThree(map, rootElement, list,doc);
-                    break;
-                }
-                case 4: {
-                    findRecordForFour(map, rootElement, list,doc);
-                    break;
-                }
-                case 5: {
-                    findRecordForFive(map, rootElement, list,doc);
-                    break;
-                }
+
             }
         }
+        System.out.println();
+        System.out.println();
+        System.out.println(map.size());
         System.out.println();
         System.out.println();
         map.forEach((key, value) -> System.out.println("key = " + key + " value =  " + value + " path = " + key.getxPath()));
