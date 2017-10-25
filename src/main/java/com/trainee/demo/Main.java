@@ -26,6 +26,7 @@ public class Main {
         Element rootElement = document.getRootElement();
         int i = Doc.values().length;
         System.out.println(i);
+
         for (Doc doc : Doc.values()) {
             for (int j = 0; j < doc.getxPath().size(); ++j) {
                 List<String> list = Parser.parse(doc.getxPath().get(j));

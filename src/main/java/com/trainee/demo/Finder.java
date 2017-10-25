@@ -83,8 +83,13 @@ public class Finder {
                     }
                     l++;
                     for (Element e4 : e3.getChildren(list.get(++i))) {
+                        System.out.println(e4.getText());
                         map.put(doc, e4.getText());
-                        return;
+                        if (l>2){
+                            map.put(doc, "");
+                            return;
+                        }
+//                        return;
                     }
                 }
             }
