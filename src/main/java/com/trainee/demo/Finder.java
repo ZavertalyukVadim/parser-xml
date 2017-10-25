@@ -9,12 +9,13 @@ public class Finder {
 
     public static void findRecordForOne(Map<Doc, String> map, Element rootElement, List<String> list, Doc doc) {
         int i = 0;
-        for (Element e1 : rootElement.getChildren(list.get(i))) {
-            String text =  e1.getText();
-            if (text.isEmpty())
+        List<Element> element = rootElement.getChildren(list.get(i));
+        if (element.size()==0){
             map.put(doc,"");
-            else
-                map.put(doc,text);
+            return;
+        }
+        for (Element e1 : rootElement.getChildren(list.get(i))) {
+            map.put(doc, e1.getText());
             return;
         }
 
@@ -31,11 +32,7 @@ public class Finder {
             }
             j++;
             for (Element e1 : e.getChildren(list.get(++i))) {
-                String text =  e1.getText();
-                if (text.isEmpty())
-                    map.put(doc,"!!!!!!");
-                else
-                    map.put(doc,text);
+                map.put(doc, e1.getText());
                 return;
             }
 
@@ -58,11 +55,7 @@ public class Finder {
                 }
                 k++;
                 for (Element e3 : e2.getChildren(list.get(++i))) {
-                    String text =  e3.getText();
-                    if (text.isEmpty())
-                        map.put(doc,"!!!!!!");
-                    else
-                        map.put(doc,text);
+                    map.put(doc, e3.getText());
                     return;
                 }
             }
@@ -89,11 +82,7 @@ public class Finder {
                     }
                     l++;
                     for (Element e4 : e3.getChildren(list.get(++i))) {
-                        String text =  e4.getText();
-                        if (text.isEmpty())
-                            map.put(doc,"!!!!!!");
-                        else
-                            map.put(doc,text);
+                        map.put(doc, e4.getText());
                         return;
                     }
                 }
@@ -123,11 +112,7 @@ public class Finder {
                         }
                         l++;
                         for (Element e4 : e3.getChildren(list.get(++i))) {
-                            String text =  e4.getText();
-                            if (text.isEmpty())
-                                map.put(doc,"!!!!!!");
-                            else
-                                map.put(doc,text);
+                            map.put(doc, e4.getText());
                             return;
                         }
                     }
