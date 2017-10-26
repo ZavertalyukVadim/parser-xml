@@ -45,6 +45,12 @@ public class Main {
                 links = (NodeList) xp.evaluate(document, XPathConstants.NODESET);
                 iterator++;
             }
+
+            System.out.println("Length= " + links.getLength());
+            if (links.getLength() > 1) {
+                map.put(doc, "Tag duplicates found – ref to xml");
+                continue;
+            }
             map.put(doc, links.item(0).getChildNodes().item(0).getNodeValue());
         }
         System.out.println("Size = " + map.size());
