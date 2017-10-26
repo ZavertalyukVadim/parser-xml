@@ -13,14 +13,22 @@ import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
-        Map<Doc, String> map = new HashMap();
+        String path = "example.xml";
+        Doc[] values = Doc.values();
+        Map<String, String> map = getDocStringMap(path, values);
 
-        File fXmlFile = new File("example.xml");
+        map.forEach((key, value) -> System.out.println(key + " value = " + value));
+    }
+
+    private static Map<String, String> getDocStringMap(String path, Doc[] values) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
+        Map<String, String> map = new LinkedHashMap<>();
+
+        File fXmlFile = new File(path);
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 
@@ -30,11 +38,11 @@ public class Main {
         XPathExpression xp;
         int iterator = 0;
 
-        for (Doc doc : Doc.values()) {
+        for (Doc doc : values) {
             try {
                 xp = XPathFactory.newInstance().newXPath().compile(doc.getxPath().get(iterator));
             } catch (Exception transformerException) {
-                map.put(doc, "Does not currently exist in the XML.");
+                map.put(doc.getLabel(), "Does not currently exist in the XML.");
                 continue;
             }
             NodeList links = (NodeList) xp.evaluate(document, XPathConstants.NODESET);
@@ -47,13 +55,11 @@ public class Main {
             }
 
             if (links.getLength() > 1) {
-                map.put(doc, "Tag duplicates found – ref to xml");
+                map.put(doc.getLabel(), "Tag duplicates found – ref to xml");
                 continue;
             }
-            map.put(doc, links.item(0).getChildNodes().item(0).getNodeValue());
+            map.put(doc.getLabel(), links.item(0).getChildNodes().item(0).getNodeValue());
         }
-        System.out.println("Size = " + map.size());
-
-        map.forEach((key, value) -> System.out.println(key.getLabel() + " value = " + value));
+        return map;
     }
 }
