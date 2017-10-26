@@ -2,6 +2,7 @@ package com.trainee.demo;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -51,21 +52,12 @@ public class Main {
         int iterator = 0;
 
         for (Doc doc : values) {
-            if (doc == Doc.PREMIUM_CURRENCY) {
-                try {
-                    List<String> parsedString = Parser.parse(Doc.PREMIUM_CURRENCY.getxPath().get(0));
+            if (checkedPremiumCurrency(map, document, doc)) {
+                continue;
+            }
 
-                    XPathExpression xp1 = XPathFactory.newInstance().newXPath().compile(parsedString.get(0));
-
-                    NodeList nodeList = (NodeList) xp1.evaluate(document, XPathConstants.NODESET);
-                    System.out.println();
-                    NamedNodeMap attributes = nodeList.item(0).getAttributes();
-                    map.put(doc.getLabel(), attributes.getNamedItem("Ccy").getTextContent());
-                    continue;
-
-                } catch (XPathExpressionException e) {
-                    e.printStackTrace();
-                }
+            if (checkedBrokenId(map, document, doc)){
+                continue;
             }
 
             try {
@@ -102,5 +94,48 @@ public class Main {
 
 
         return map;
+    }
+
+    private static boolean checkedPremiumCurrency(Map<String, String> map, Document document, Doc doc) {
+        if (doc == Doc.PREMIUM_CURRENCY) {
+            try {
+                List<String> parsedString = Parser.parse(Doc.PREMIUM_CURRENCY.getxPath().get(0));
+
+                XPathExpression xp1 = XPathFactory.newInstance().newXPath().compile(parsedString.get(0));
+
+                NodeList nodeList = (NodeList) xp1.evaluate(document, XPathConstants.NODESET);
+
+                NamedNodeMap attributes = nodeList.item(0).getAttributes();
+                map.put(doc.getLabel(), attributes.getNamedItem("Ccy").getTextContent());
+                return true;
+
+            } catch (XPathExpressionException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    private static boolean checkedBrokenId(Map<String, String> map, Document document, Doc doc) {
+        if (doc == Doc.BROKEN_ID) {
+            try {
+                List<String> parsedString = Parser.parse(Doc.BROKEN_ID.getxPath().get(0));
+
+                XPathExpression xp1 = XPathFactory.newInstance().newXPath().compile(parsedString.get(0));
+
+                NodeList nodeList = (NodeList) xp1.evaluate(document, XPathConstants.NODESET);
+
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    Node agency = nodeList.item(i).getAttributes().getNamedItem("Agency");
+                    if (!agency.getNodeValue().contains("DUNS")) {
+                        map.put(doc.getLabel(), agency.getNodeValue());
+                        return true;
+                    }
+                }
+            } catch (XPathExpressionException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 }
