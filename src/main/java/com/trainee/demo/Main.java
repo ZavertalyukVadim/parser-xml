@@ -23,12 +23,12 @@ public class Main {
     public static void main(String[] args) {
         String path = "example.xml";
         Doc[] values = Doc.values();
-        Map<String, String> map = getDocStringMap(path, values);
+        Map<String, String> map = getMapValues(path, values);
         System.out.println(map.size());
         map.forEach((key, value) -> System.out.println(key + " value = " + value));
     }
 
-    private static Map<String, String> getDocStringMap(String path, Doc[] values) {
+    private static Map<String, String> getMapValues(String path, Doc[] values) {
 
         Document document = getDocument(path);
 
