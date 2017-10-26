@@ -140,7 +140,7 @@ public class Main {
                 for (int i = 0; i < nodeList.getLength(); i++) {
                     Node agency = nodeList.item(i).getAttributes().getNamedItem("Agency");
                     if (!agency.getNodeValue().contains("DUNS")) {
-                        map.put(doc.getLabel(), agency.getNodeValue());
+                        map.put(doc.getLabel(), nodeList.item(i).getTextContent());
                         return true;
                     }
                 }
