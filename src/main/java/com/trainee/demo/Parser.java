@@ -10,7 +10,6 @@ public class Parser {
         if (string.length()==0){
             return Arrays.asList(string);
         }
-//        string = string.substring(7).trim();
         String[] str = string.split(" ");
         return Arrays.asList(str);
     }
