@@ -27,14 +27,15 @@ public class Main {
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document document = dBuilder.parse(fXmlFile);
 
-        XPathExpression xp = null;
+        XPathExpression xp;
         int iterator = 0;
 
         for (Doc doc : Doc.values()) {
             try {
                 xp = XPathFactory.newInstance().newXPath().compile(doc.getxPath().get(iterator));
             } catch (Exception transformerException) {
-                map.put(doc, "");
+                map.put(doc, "Does not currently exist in the XML.");
+                continue;
             }
             NodeList links = (NodeList) xp.evaluate(document, XPathConstants.NODESET);
 
@@ -48,6 +49,6 @@ public class Main {
         }
         System.out.println("Size = " + map.size());
 
-        map.forEach((key, value) -> System.out.println("key = " + key + " value = " + value));
+        map.forEach((key, value) -> System.out.println(key.getLabel() + " value = " + value));
     }
 }
