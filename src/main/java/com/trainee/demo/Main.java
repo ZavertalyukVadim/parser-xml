@@ -14,13 +14,11 @@ import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
         Map<Doc, String> map = new HashMap();
-        List<String> parse = Parser.parse(Doc.REFERENCE.getxPath().get(0));
 
         File fXmlFile = new File("example.xml");
 
@@ -29,9 +27,19 @@ public class Main {
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
         Document doc = dBuilder.parse(fXmlFile);
 
-        XPathExpression xp = XPathFactory.newInstance().newXPath().compile("/Placing/ContractSection/ContractMarket/PremiumRegulatoryAllocationScheme/Allocation/AllocationReference");
+        int iterator = 0;
 
+        XPathExpression xp = XPathFactory.newInstance().newXPath().compile(Doc.INSURED.getxPath().get(iterator));
         NodeList links = (NodeList) xp.evaluate(doc, XPathConstants.NODESET);
+
+
+        while (links.getLength() == 0) {
+            xp = XPathFactory.newInstance().newXPath().compile(Doc.INSURED.getxPath().get(iterator));
+            links = (NodeList) xp.evaluate(doc, XPathConstants.NODESET);
+            iterator++;
+        }
+
+        System.out.println("links = " + links.getLength());
 
         System.out.println(links.item(0).getChildNodes().item(0).getNodeValue());
     }
