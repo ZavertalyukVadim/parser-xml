@@ -31,11 +31,11 @@ public class Main {
         }
 
 
-//        System.out.println();
-//        System.out.println();
-//        System.out.println(map.size());
-//        System.out.println();
-//        System.out.println();
-//        map.forEach((key, value) -> System.out.println("key = " + key + " value =  " + value + " path = " + key.getxPath()));
+        System.out.println();
+        System.out.println();
+        System.out.println(map.size());
+        System.out.println();
+        System.out.println();
+        map.forEach((key, value) -> System.out.println("key = " + key + " value =  " + value + " path = " + key.getxPath()));
     }
 }
