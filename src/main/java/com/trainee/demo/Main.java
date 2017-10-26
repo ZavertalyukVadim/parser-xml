@@ -46,7 +46,6 @@ public class Main {
                 iterator++;
             }
 
-            System.out.println("Length= " + links.getLength());
             if (links.getLength() > 1) {
                 map.put(doc, "Tag duplicates found – ref to xml");
                 continue;
