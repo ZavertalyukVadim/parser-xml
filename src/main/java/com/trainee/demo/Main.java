@@ -1,41 +1,153 @@
 package com.trainee.demo;
 
-import org.jdom2.Document;
-import org.jdom2.Element;
-import org.jdom2.JDOMException;
-import org.jdom2.filter.Filters;
-import org.jdom2.input.SAXBuilder;
-import org.jdom2.xpath.XPathExpression;
-import org.jdom2.xpath.XPathFactory;
+import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathExpressionException;
+import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) throws JDOMException, IOException {
-        Map<Doc, String> map = new HashMap();
+    public static void main(String[] args) {
+        String path = "example.xml";
+        Doc[] values = Doc.values();
+        Map<String, String> map = getMapValues(path, values);
+        System.out.println(map.size());
+        map.forEach((key, value) -> System.out.println(key + " value = " + value));
+    }
 
-        File inputFile = new File("example.xml");
-        SAXBuilder saxBuilder = new SAXBuilder();
-        Document document = saxBuilder.build(inputFile);
+    private static Map<String, String> getMapValues(String path, Doc[] values) {
 
-        XPathFactory xFactory = XPathFactory.instance();
+        Document document = getDocument(path);
 
-        XPathExpression<Element> expr = xFactory.compile("/Placing/ContractSection/ContractMarket/PremiumRegulatoryAllocationScheme/Allocation/AllocationReference", Filters.element());
-        List<Element>links = expr.evaluate(document);
-        for (Element linkElement : links) {
-            System.out.println(linkElement.getText());
+        return fillingMap(values, document);
+    }
+
+    private static Document getDocument(String path) {
+        File fXmlFile = new File(path);
+
+        DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+
+        DocumentBuilder dBuilder = null;
+
+        try {
+            dBuilder = dbFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
         }
 
+        Document document = null;
 
-//        System.out.println();
-//        System.out.println();
-//        System.out.println(map.size());
-//        System.out.println();
-//        System.out.println();
-//        map.forEach((key, value) -> System.out.println("key = " + key + " value =  " + value + " path = " + key.getxPath()));
+        try {
+            document = dBuilder.parse(fXmlFile);
+        } catch (SAXException | IOException e) {
+            e.printStackTrace();
+        }
+        return document;
+    }
+
+    private static Map<String, String> fillingMap(Doc[] values, Document document) {
+        Map<String, String> map = new LinkedHashMap<>();
+        XPathExpression xp;
+        for (Doc doc : values) {
+            int iterator = 0;
+
+            if (checkedPremiumCurrency(map, document, doc)) {
+                continue;
+            }
+
+            if (checkedBrokenId(map, document, doc)) {
+                continue;
+            }
+
+            try {
+                xp = XPathFactory.newInstance().newXPath().compile(doc.getxPath().get(iterator));
+            } catch (Exception transformerException) {
+                map.put(doc.getLabel(), "Does not currently exist in the XML.");
+                continue;
+            }
+
+            NodeList links = null;
+
+            try {
+                links = (NodeList) xp.evaluate(document, XPathConstants.NODESET);
+            } catch (XPathExpressionException e) {
+                e.printStackTrace();
+            }
+
+
+            while (links.getLength() == 0) {
+                try {
+                    xp = XPathFactory.newInstance().newXPath().compile(doc.getxPath().get(iterator));
+                    links = (NodeList) xp.evaluate(document, XPathConstants.NODESET);
+                } catch (XPathExpressionException e) {
+                    e.printStackTrace();
+                }
+                iterator++;
+            }
+
+            if (links.getLength() > 1) {
+                map.put(doc.getLabel(), "Tag duplicates found – ref to xml");
+                continue;
+            }
+
+            map.put(doc.getLabel(), links.item(0).getTextContent());
+        }
+        return map;
+    }
+
+    private static boolean checkedPremiumCurrency(Map<String, String> map, Document document, Doc doc) {
+        if (doc == Doc.PREMIUM_CURRENCY) {
+            try {
+                List<String> parsedString = Parser.parse(Doc.PREMIUM_CURRENCY.getxPath().get(0));
+
+                XPathExpression xp1 = XPathFactory.newInstance().newXPath().compile(parsedString.get(0));
+
+                NodeList nodeList = (NodeList) xp1.evaluate(document, XPathConstants.NODESET);
+
+                NamedNodeMap attributes = nodeList.item(0).getAttributes();
+                map.put(doc.getLabel(), attributes.getNamedItem("Ccy").getTextContent());
+                return true;
+
+            } catch (XPathExpressionException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
+    private static boolean checkedBrokenId(Map<String, String> map, Document document, Doc doc) {
+        if (doc == Doc.BROKEN_ID) {
+            try {
+                List<String> parsedString = Parser.parse(Doc.BROKEN_ID.getxPath().get(0));
+
+                XPathExpression xp1 = XPathFactory.newInstance().newXPath().compile(parsedString.get(0));
+
+                NodeList nodeList = (NodeList) xp1.evaluate(document, XPathConstants.NODESET);
+
+                for (int i = 0; i < nodeList.getLength(); i++) {
+                    Node agency = nodeList.item(i).getAttributes().getNamedItem("Agency");
+                    if (!agency.getNodeValue().contains("DUNS")) {
+                        map.put(doc.getLabel(), agency.getNodeValue());
+                        return true;
+                    }
+                }
+            } catch (XPathExpressionException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
     }
 }
