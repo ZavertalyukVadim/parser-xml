@@ -1,11 +1,12 @@
 package com.trainee.demo;
 
-import org.jdom2.Attribute;
 import org.jdom2.Document;
 import org.jdom2.Element;
 import org.jdom2.JDOMException;
+import org.jdom2.filter.Filters;
 import org.jdom2.input.SAXBuilder;
-import org.jdom2.xpath.XPath;
+import org.jdom2.xpath.XPathExpression;
+import org.jdom2.xpath.XPathFactory;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.ParserConfigurationException;
@@ -13,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -23,17 +25,20 @@ public class Main {
         SAXBuilder saxBuilder = new SAXBuilder();
         Document document = saxBuilder.build(inputFile);
 
-        Element rootElement = document.getRootElement();
-//        rootElement.getChild("", "");
+        XPathFactory xFactory = XPathFactory.instance();
 
-        Attribute attr = (Attribute) XPath.selectSingleNode(document, "/Placing/ContractSection/ContractMarket/PremiumRegulatoryAllocationScheme/Allocation/AllocationReference");
-        System.out.println(attr.getValue());
+        XPathExpression<Element>expr = xFactory.compile("/Placing/ContractSection/ContractMarket/PremiumRegulatoryAllocationScheme/Allocation/AllocationReference", Filters.element());
+        List<Element>links = expr.evaluate(document);
+        for (Element linkElement : links) {
+            System.out.println(linkElement.getText());
+        }
+
 
 //        Element el = new Element("parent").addContent(new Element("child").setAttribute("name", "value"));
 //        System.out.println(XPath.selectSingleNode(new Attribute("foo", "bar"), "position()"));
 
-        XPath path = XPath.newInstance("/schedule/@name");
-        System.out.println(path.valueOf(document));
+//        XPath path = XPath.newInstance("/schedule/@name");
+//        System.out.println(path.valueOf(document));
 
 //        getChild(localName, namespaceUri)
 //        for (Doc doc : Doc.values()) {
@@ -64,11 +69,11 @@ public class Main {
 //
 //            }
 //        }
-        System.out.println();
-        System.out.println();
-        System.out.println(map.size());
-        System.out.println();
-        System.out.println();
-        map.forEach((key, value) -> System.out.println("key = " + key + " value =  " + value + " path = " + key.getxPath()));
+//        System.out.println();
+//        System.out.println();
+//        System.out.println(map.size());
+//        System.out.println();
+//        System.out.println();
+//        map.forEach((key, value) -> System.out.println("key = " + key + " value =  " + value + " path = " + key.getxPath()));
     }
 }
