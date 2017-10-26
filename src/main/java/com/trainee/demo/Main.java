@@ -17,7 +17,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Main {
-    public static void main(String[] args) throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
+    public static void main(String[] args) {
         String path = "example.xml";
         Doc[] values = Doc.values();
         Map<String, String> map = getDocStringMap(path, values);
@@ -25,15 +25,25 @@ public class Main {
         map.forEach((key, value) -> System.out.println(key + " value = " + value));
     }
 
-    private static Map<String, String> getDocStringMap(String path, Doc[] values) throws ParserConfigurationException, SAXException, IOException, XPathExpressionException {
+    private static Map<String, String> getDocStringMap(String path, Doc[] values) {
         Map<String, String> map = new LinkedHashMap<>();
 
         File fXmlFile = new File(path);
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 
-        DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document document = dBuilder.parse(fXmlFile);
+        DocumentBuilder dBuilder = null;
+        try {
+            dBuilder = dbFactory.newDocumentBuilder();
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        }
+        Document document = null;
+        try {
+            document = dBuilder.parse(fXmlFile);
+        } catch (SAXException | IOException e) {
+            e.printStackTrace();
+        }
 
         XPathExpression xp;
         int iterator = 0;
@@ -45,12 +55,21 @@ public class Main {
                 map.put(doc.getLabel(), "Does not currently exist in the XML.");
                 continue;
             }
-            NodeList links = (NodeList) xp.evaluate(document, XPathConstants.NODESET);
+            NodeList links = null;
+            try {
+                links = (NodeList) xp.evaluate(document, XPathConstants.NODESET);
+            } catch (XPathExpressionException e) {
+                e.printStackTrace();
+            }
 
 
             while (links.getLength() == 0) {
-                xp = XPathFactory.newInstance().newXPath().compile(doc.getxPath().get(iterator));
-                links = (NodeList) xp.evaluate(document, XPathConstants.NODESET);
+                try {
+                    xp = XPathFactory.newInstance().newXPath().compile(doc.getxPath().get(iterator));
+                    links = (NodeList) xp.evaluate(document, XPathConstants.NODESET);
+                } catch (XPathExpressionException e) {
+                    e.printStackTrace();
+                }
                 iterator++;
             }
 
