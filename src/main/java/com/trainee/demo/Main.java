@@ -24,13 +24,18 @@ public class Main {
         String path = "example.xml";
         Doc[] values = Doc.values();
         Map<String, String> map = getDocStringMap(path, values);
+        System.out.println(map.size());
         map.forEach((key, value) -> System.out.println(key + " value = " + value));
     }
 
     private static Map<String, String> getDocStringMap(String path, Doc[] values) {
 
-        Map<String, String> map = new LinkedHashMap<>();
+        Document document = getDocument(path);
 
+        return fillingMap(values, document);
+    }
+
+    private static Document getDocument(String path) {
         File fXmlFile = new File(path);
 
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -50,10 +55,12 @@ public class Main {
         } catch (SAXException | IOException e) {
             e.printStackTrace();
         }
+        return document;
+    }
 
+    private static Map<String, String> fillingMap(Doc[] values, Document document) {
+        Map<String, String> map = new LinkedHashMap<>();
         XPathExpression xp;
-
-
         for (Doc doc : values) {
             int iterator = 0;
 
@@ -61,7 +68,7 @@ public class Main {
                 continue;
             }
 
-            if (checkedBrokenId(map, document, doc)){
+            if (checkedBrokenId(map, document, doc)) {
                 continue;
             }
 
