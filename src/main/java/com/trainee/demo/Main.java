@@ -1,6 +1,7 @@
 package com.trainee.demo;
 
 import org.w3c.dom.Document;
+import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
@@ -14,6 +15,7 @@ import javax.xml.xpath.XPathFactory;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Main {
@@ -49,6 +51,23 @@ public class Main {
         int iterator = 0;
 
         for (Doc doc : values) {
+            if (doc == Doc.PREMIUM_CURRENCY) {
+                try {
+                    List<String> parsedString = Parser.parse(Doc.PREMIUM_CURRENCY.getxPath().get(0));
+
+                    XPathExpression xp1 = XPathFactory.newInstance().newXPath().compile(parsedString.get(0));
+
+                    NodeList nodeList = (NodeList) xp1.evaluate(document, XPathConstants.NODESET);
+                    System.out.println();
+                    NamedNodeMap attributes = nodeList.item(0).getAttributes();
+                    map.put(doc.getLabel(), attributes.getNamedItem("Ccy").getTextContent());
+                    continue;
+
+                } catch (XPathExpressionException e) {
+                    e.printStackTrace();
+                }
+            }
+
             try {
                 xp = XPathFactory.newInstance().newXPath().compile(doc.getxPath().get(iterator));
             } catch (Exception transformerException) {
@@ -78,7 +97,10 @@ public class Main {
                 continue;
             }
             map.put(doc.getLabel(), links.item(0).getTextContent());
+
         }
+
+
         return map;
     }
 }

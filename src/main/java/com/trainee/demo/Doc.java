@@ -9,11 +9,11 @@ public enum Doc {
     COUNTRY("Country","/Placing/ContractSection/RiskLocation/Location/Description"),
     INSURED("(Re) Insured","/Placing/InsuredDescription", "/Placing/OriginalPolicyholder/Party/Name"),
     DESCRIPTION("Description","/Placing/ContractSection/ContractSectionClass/ClassOfBusinessDescription"),
-    BROKEN_ID("Broker Id","/Placing/Broker/Party/Id"),
+    BROKEN_ID("Broker Id","/Placing/Broker/Party/Id"),//
     BROKEN_NAME("Broker Name","/Placing/Broker/Party/Name"),
-    PREMIUM_CURRENCY("Premium Currency (1st textbox)","/Placing/ContractSection/Premium/PremiumAmount/Amt"),//
+    PREMIUM_CURRENCY("Premium Currency (1st textbox)","Placing/ContractSection/Premium/PremiumAmount/Amt Ccy"),//
     PREMIUM_AMOUNT("Premium Amount (2nd textbox)","/Placing/ContractSection/Premium/PremiumAmount/Amt"),
-    LIMIT_CURRENCY("Limit Currency (1st textbox)","/Placing/ContractSection/ContractCoverage/CoverageAmount/Amt"),//
+    LIMIT_CURRENCY("Limit Currency (1st textbox)","/Placing/ContractSection/ContractCoverage/CoverageAmount/Amt"),
     LIMIT_AMOUNT("Limit Amount (2nd textbox)","/Placing/ContractSection/ContractCoverage/CoverageAmount/Amt"),
     BKRAGE("Bkrage %","/Placing/ContractSection/Brokerage/BrokeragePercentage/Rate"),
     BASIS("Basis","/Placing/ContractSection/ContractCoverage/CoverageBasis "),
