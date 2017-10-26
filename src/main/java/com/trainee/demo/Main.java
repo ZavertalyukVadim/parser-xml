@@ -24,11 +24,11 @@ public class Main {
         String path = "example.xml";
         Doc[] values = Doc.values();
         Map<String, String> map = getDocStringMap(path, values);
-
         map.forEach((key, value) -> System.out.println(key + " value = " + value));
     }
 
     private static Map<String, String> getDocStringMap(String path, Doc[] values) {
+
         Map<String, String> map = new LinkedHashMap<>();
 
         File fXmlFile = new File(path);
@@ -36,12 +36,15 @@ public class Main {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 
         DocumentBuilder dBuilder = null;
+
         try {
             dBuilder = dbFactory.newDocumentBuilder();
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         }
+
         Document document = null;
+
         try {
             document = dBuilder.parse(fXmlFile);
         } catch (SAXException | IOException e) {
@@ -49,9 +52,11 @@ public class Main {
         }
 
         XPathExpression xp;
-        int iterator = 0;
+
 
         for (Doc doc : values) {
+            int iterator = 0;
+
             if (checkedPremiumCurrency(map, document, doc)) {
                 continue;
             }
@@ -66,7 +71,9 @@ public class Main {
                 map.put(doc.getLabel(), "Does not currently exist in the XML.");
                 continue;
             }
+
             NodeList links = null;
+
             try {
                 links = (NodeList) xp.evaluate(document, XPathConstants.NODESET);
             } catch (XPathExpressionException e) {
@@ -88,11 +95,9 @@ public class Main {
                 map.put(doc.getLabel(), "Tag duplicates found – ref to xml");
                 continue;
             }
+
             map.put(doc.getLabel(), links.item(0).getTextContent());
-
         }
-
-
         return map;
     }
 
