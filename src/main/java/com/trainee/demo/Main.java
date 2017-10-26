@@ -77,7 +77,7 @@ public class Main {
                 map.put(doc.getLabel(), "Tag duplicates found – ref to xml");
                 continue;
             }
-            map.put(doc.getLabel(), links.item(0).getChildNodes().item(0).getNodeValue());
+            map.put(doc.getLabel(), links.item(0).getTextContent());
         }
         return map;
     }
