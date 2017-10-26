@@ -25,22 +25,29 @@ public class Main {
         DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 
         DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-        Document doc = dBuilder.parse(fXmlFile);
+        Document document = dBuilder.parse(fXmlFile);
 
+        XPathExpression xp = null;
         int iterator = 0;
 
-        XPathExpression xp = XPathFactory.newInstance().newXPath().compile(Doc.INSURED.getxPath().get(iterator));
-        NodeList links = (NodeList) xp.evaluate(doc, XPathConstants.NODESET);
+        for (Doc doc : Doc.values()) {
+            try {
+                xp = XPathFactory.newInstance().newXPath().compile(doc.getxPath().get(iterator));
+            } catch (Exception transformerException) {
+                map.put(doc, "");
+            }
+            NodeList links = (NodeList) xp.evaluate(document, XPathConstants.NODESET);
 
 
-        while (links.getLength() == 0) {
-            xp = XPathFactory.newInstance().newXPath().compile(Doc.INSURED.getxPath().get(iterator));
-            links = (NodeList) xp.evaluate(doc, XPathConstants.NODESET);
-            iterator++;
+            while (links.getLength() == 0) {
+                xp = XPathFactory.newInstance().newXPath().compile(doc.getxPath().get(iterator));
+                links = (NodeList) xp.evaluate(document, XPathConstants.NODESET);
+                iterator++;
+            }
+            map.put(doc, links.item(0).getChildNodes().item(0).getNodeValue());
         }
+        System.out.println("Size = " + map.size());
 
-        System.out.println("links = " + links.getLength());
-
-        System.out.println(links.item(0).getChildNodes().item(0).getNodeValue());
+        map.forEach((key, value) -> System.out.println("key = " + key + " value = " + value));
     }
 }
